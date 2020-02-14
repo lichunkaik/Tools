@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="NormalBorder">#909090</color>
+    <color name="SelectBorder">#909090</color>
+    <color name="SelectMap">#c7fffd</color>
+    <color name="Level1">#ffaa85</color>
+    <color name="Level2">#ff7b69</color>
+    <color name="Level3">#cc2929</color>
+    <color name="Level4">#8c0d0d</color>
+    <color name="Level5">#660208</color>
+</resources>
