@@ -1,6 +1,5 @@
 package com.lck.tools.Activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,6 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.lck.tools.Adapter.PneumoniaCityDataAdapter;
 import com.lck.tools.Adapter.PneumoniaProvinceDataAdapter;
 import com.lck.tools.Class.PneumoniaData.CityData;
-import com.lck.tools.Class.PneumoniaData.PneumoniaData;
 import com.lck.tools.Class.PneumoniaData.ProvinceData;
 import com.lck.tools.Common.TemporaryData;
 import com.lck.tools.R;
@@ -83,11 +81,6 @@ public class PneumoniaDataActivity extends AppCompatActivity implements View.OnC
                     //界面显示数据
                     setMap();
                     setProvinceAdapter();
-                    textView_updateDate.setText("更新时间："+TemporaryData.pneumoniaData.getDate());
-                    textView_confirmedCount.setText(sum_confirmedCount+"");
-                    textView_suspectedCount.setText(sum_suspectedCount+"");
-                    textView_curedCount.setText(sum_curedCount+"");
-                    textView_deadCount.setText(sum_deadCount+"");
                     break;
             }
             super.handleMessage(msg);
@@ -110,10 +103,11 @@ public class PneumoniaDataActivity extends AppCompatActivity implements View.OnC
         RecyclerView_city.setVisibility(View.GONE);
         textView_title.setText("全国疫情实时数据");
         //计算并显示总览
-        textView_confirmedCount.setText(sum_confirmedCount+"");
-        textView_suspectedCount.setText(sum_suspectedCount+"");
-        textView_curedCount.setText(sum_curedCount+"");
-        textView_deadCount.setText(sum_deadCount+"");
+        textView_updateDate.setText("更新时间："+TemporaryData.pneumoniaData.getDate());
+        textView_confirmedCount.setText(TemporaryData.pneumoniaData.getSum_confirmedCount()+"");
+        textView_suspectedCount.setText(TemporaryData.pneumoniaData.getSum_suspectedCount()+"");
+        textView_curedCount.setText(TemporaryData.pneumoniaData.getSum_curedCount()+"");
+        textView_deadCount.setText(TemporaryData.pneumoniaData.getSum_deadCount()+"");
         //设置
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         PneumoniaProvinceDataAdapter pneumoniaDataAdapter = new PneumoniaProvinceDataAdapter(TemporaryData.pneumoniaData.getProvinceDataArrayList());
@@ -198,7 +192,6 @@ public class PneumoniaDataActivity extends AppCompatActivity implements View.OnC
         }else {
             setProvinceAdapter();
         }
-
     }
 
     /**
@@ -314,6 +307,10 @@ public class PneumoniaDataActivity extends AppCompatActivity implements View.OnC
                 TemporaryData.pneumoniaData.setDate(getDate(false));
                 TemporaryData.pneumoniaData.setProvinceDataArrayList(pneumoniaDataArrayList);
                 TemporaryData.pneumoniaData.setProvinceMap(provinceMap);
+                TemporaryData.pneumoniaData.setSum_confirmedCount(sum_confirmedCount);
+                TemporaryData.pneumoniaData.setSum_suspectedCount(sum_suspectedCount);
+                TemporaryData.pneumoniaData.setSum_curedCount(sum_curedCount);
+                TemporaryData.pneumoniaData.setSum_deadCount(sum_deadCount);
 
                 //发送加载完成消息
                 Message message = new Message();
@@ -360,6 +357,7 @@ public class PneumoniaDataActivity extends AppCompatActivity implements View.OnC
                 int index = TemporaryData.pneumoniaData.getProvinceMap().get(provinceName.substring(0,2));
                 ProvinceData provinceData = TemporaryData.pneumoniaData.getProvinceDataArrayList().get(index);
                 int confirmedCount = provinceData.getConfirmedCount();
+                if (confirmedCount == 0) provinceModel.setColor(Color.parseColor("#ededed"));
                 if (confirmedCount < 10) provinceModel.setColor(Color.parseColor("#ffaa85"));
                 if (confirmedCount >= 10) provinceModel.setColor(Color.parseColor("#ff7b69"));
                 if (confirmedCount >= 100) provinceModel.setColor(Color.parseColor("#cc2929"));
@@ -386,9 +384,6 @@ public class PneumoniaDataActivity extends AppCompatActivity implements View.OnC
                         //修改背景
                         setMap();
                         provinceModel.setColor(Color.parseColor("#c7fffd"));
-                        //显示小窗口显示确诊数
-
-
                     }
                 }
             }
@@ -415,4 +410,5 @@ public class PneumoniaDataActivity extends AppCompatActivity implements View.OnC
                 break;
         }
     }
+
 }

@@ -41,7 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -51,11 +52,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
+                    android:layout_alignParentTop="true"
                     android:text="更新时间：" />
 
                 <LinearLayout
+                    android:id="@+id/LinearLayout_sum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView_updateDate"
                     android:layout_marginVertical="10dp"
                     android:background="@drawable/back_radius_lightgray"
                     android:orientation="horizontal"
@@ -167,8 +171,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/LinearLayout_map"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearLayout_sum"
                     android:orientation="vertical">
 
                     <com.wxy.chinamapview.view.ChinaMapView
@@ -183,6 +189,26 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="20dp"
                         android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                android:background="#ededed" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:text="0" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -288,8 +314,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/LinearLayout_ListTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearLayout_map"
                     android:layout_marginVertical="10dp"
                     android:orientation="horizontal">
 
@@ -348,15 +376,17 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/RecyclerView_province"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearLayout_ListTitle"
                     android:layout_weight="1" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/RecyclerView_city"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearLayout_ListTitle" />
 
-            </LinearLayout>
+            </RelativeLayout>
         </ScrollView>
 
     </LinearLayout>
